@@ -4,6 +4,7 @@ import Accueil from "./pages/Accueil";
 import Auth from "./containers/Auth";
 import Signup from "./signup/Signup";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <LanguageSwitcher />
+    </>
+  );
 };
 export default App;

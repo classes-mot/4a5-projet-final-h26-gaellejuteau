@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/auth-context.js";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const NavLinks = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     auth.logout();
@@ -18,7 +20,7 @@ const NavLinks = () => {
           to="/accueil"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          Accueil
+          {t("accueil")}
         </NavLink>
       </li>
       <li>
@@ -26,7 +28,7 @@ const NavLinks = () => {
           to="/catalogue"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          Catalogue
+          {t("catalogue")}
         </NavLink>
       </li>
       <li>
@@ -34,7 +36,7 @@ const NavLinks = () => {
           to="/personaliser"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          Personnaliser
+          {t("personnaliser")}
         </NavLink>
       </li>
 
@@ -46,11 +48,13 @@ const NavLinks = () => {
               onClick={handleLogout}
               className={({ isActive }) => (isActive ? "active" : "")}
             >
-              Déconnexion
+              {t("déconnexion")}
             </NavLink>
           </li>
           {auth.user && (
-            <li className="welcome-message">Bienvenue, {auth.user.name}!</li>
+            <li className="welcome-message">
+              {t("bienvenue")}, {auth.user.name}!
+            </li>
           )}
         </>
       ) : (
@@ -60,7 +64,7 @@ const NavLinks = () => {
               to="/login"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
-              Connexion
+              {t("connexion")}
             </NavLink>
           </li>
           <li>
@@ -68,19 +72,11 @@ const NavLinks = () => {
               to="/signup"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
-              Inscription
+              {t("inscription")}
             </NavLink>
           </li>
         </>
       )}
-      <li>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          Contact
-        </NavLink>
-      </li>
     </ul>
   );
 };
