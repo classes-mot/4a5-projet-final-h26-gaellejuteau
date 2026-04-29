@@ -1,0 +1,25 @@
+import RootLayout from "./containers/Roots";
+import ErreurPage from "./pages/ErreurPage";
+import Accueil from "./pages/Accueil";
+import Auth from "./containers/Auth";
+import Signup from "./signup/Signup";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <ErreurPage />,
+    children: [
+      { path: "", element: <Accueil /> },
+      { path: "accueil", element: <Accueil /> },
+      { path: "login", element: <Auth /> },
+      { path: "signup", element: <Signup /> },
+    ],
+  },
+]);
+
+const App = () => {
+  return <RouterProvider router={router} />;
+};
+export default App;
