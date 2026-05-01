@@ -1,0 +1,125 @@
+/* ===== PAGE WRAPPER ===== */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 16px;
+}
+
+/* ===== FORM CARD ===== */
+.login-form {
+  background-color: #fce4f3;
+  border-radius: 24px;
+  padding: 40px 48px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* ===== TITLE ===== */
+.login-form h2 {
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #222;
+  margin-bottom: 32px;
+}
+
+/* ===== CONTROL ===== */
+.login-form .control-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.login-form .control {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.login-form .control label {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  color: #e05fa0;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  min-width: 130px;
+  text-align: right;
+}
+
+.login-form .control input {
+  background: #fff;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  color: #222;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  width: 100%;
+}
+
+.login-form .control input:focus {
+  border-color: #e05fa0;
+  box-shadow: 0 0 0 3px rgba(224, 95, 160, 0.15);
+}
+
+/* ===== ERROR MESSAGE ===== */
+.login-form .control-error {
+  color: #c0392b;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* ===== FORM ACTIONS ===== */
+.login-form .form-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+/* ===== BUTTONS ===== */
+.login-form .button {
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 999px;
+  padding: 10px 32px;
+  font-style: italic;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+  text-decoration: none;
+}
+
+.login-form .button:hover {
+  background: #e05fa0;
+  border-color: #e05fa0;
+  color: #fff;
+}
+
+.login-form .button-flat {
+  background: transparent;
+  border-color: transparent;
+  color: #e05fa0;
+}
+
+.login-form .button-flat:hover {
+  background: #fce4f3;
+  border-color: #e05fa0;
+  color: #e05fa0;
+}

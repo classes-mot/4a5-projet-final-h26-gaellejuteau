@@ -22,7 +22,7 @@
 .nav-links a.active {
   background-color: white;
   border-color: gray;
-  color: #74b98f;
+  color: #000000;
 }
 
 .nav-links button {

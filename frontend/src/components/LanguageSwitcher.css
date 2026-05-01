@@ -1,0 +1,19 @@
+.lang-switcher {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lang-switcher button {
+  background: white;
+  border: 2px solid #b04597;
+  color: #000000;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.lang-switcher button.active {
+  background: #b04597;
+  color: white;
+}
