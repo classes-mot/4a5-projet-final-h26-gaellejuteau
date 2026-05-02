@@ -1,0 +1,132 @@
+/* ===== PAGE WRAPPER ===== */
+.perso-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 16px;
+}
+
+/* ===== FORM CARD ===== */
+.perso-form {
+  background-color: #fce4f3;
+  border-radius: 24px;
+  padding: 40px 40px;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ===== TITLE ===== */
+.perso-form h2 {
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #222;
+  margin-bottom: 28px;
+}
+
+/* ===== CONTROL ROW ===== */
+.perso-control {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* ===== LABELS ===== */
+.perso-control > label {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  color: #e05fa0;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  min-width: 160px;
+  text-align: right;
+  padding-top: 8px;
+}
+
+/* ===== TEXT / NUMBER INPUT ===== */
+.perso-control input[type="text"],
+.perso-control input[type="number"] {
+  background: #fff;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  color: #222;
+  outline: none;
+  width: 160px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.perso-control input[type="text"]:focus,
+.perso-control input[type="number"]:focus {
+  border-color: #e05fa0;
+  box-shadow: 0 0 0 3px rgba(224, 95, 160, 0.15);
+}
+
+/* ===== RADIO GROUP ===== */
+.perso-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.perso-radio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+}
+
+/* ===== RADIO LABELS ===== */
+.perso-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  color: #222;
+  cursor: pointer;
+}
+
+.perso-radio-label input[type="radio"] {
+  accent-color: #e05fa0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.perso-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.perso-btn {
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 999px;
+  padding: 12px 40px;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #333;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.perso-btn:hover {
+  background: #e05fa0;
+  border-color: #e05fa0;
+  color: #fff;
+}

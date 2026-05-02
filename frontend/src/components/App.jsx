@@ -3,6 +3,7 @@ import ErreurPage from "./pages/ErreurPage";
 import Accueil from "./pages/Accueil";
 import Auth from "./containers/Auth";
 import Signup from "./signup/Signup";
+import Personnaliser from "./pages/personnaliser/Personnaliser";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "accueil", element: <Accueil /> },
       { path: "login", element: <Auth /> },
       { path: "signup", element: <Signup /> },
+      { path: "personnaliser", element: <Personnaliser /> },
     ],
   },
 ]);

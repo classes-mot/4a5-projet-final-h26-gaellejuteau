@@ -33,7 +33,7 @@ const NavLinks = () => {
       </li>
       <li>
         <NavLink
-          to="/personaliser"
+          to="/personnaliser"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           {t("personnaliser")}
