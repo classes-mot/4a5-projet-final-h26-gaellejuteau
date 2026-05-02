@@ -3,8 +3,12 @@ import { createRoot } from "react-dom/client";
 import "../index.css";
 import App from "./components/App.jsx";
 import "./components/i18.js";
+import AuthContextProvider from "./components/context/authContextProvider.jsx";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
   </StrictMode>,
 );

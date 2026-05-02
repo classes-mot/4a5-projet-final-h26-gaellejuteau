@@ -4,5 +4,7 @@
   "personnaliser": "Customize",
   "connexion": "Login",
   "inscription": "Sign up",
-  "bienvenue": "Welcome"
+  "bienvenue": "Welcome",
+  "deconnexion": "Logout",
+  "panier": "Cart"
 }

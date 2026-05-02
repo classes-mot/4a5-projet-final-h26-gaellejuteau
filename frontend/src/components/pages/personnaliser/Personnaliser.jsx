@@ -11,14 +11,25 @@ export default function Personnaliser() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+
+    if (name === "portions") {
+      if (value === "" || parseInt(value) <= 50) {
+        setFormValues((prev) => ({ ...prev, [name]: value }));
+      }
+      return;
+    }
+
+    setFormValues((prev) => ({ ...prev, [name]: value }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Commande passée avec les valeurs :", formValues);
+
+    if (parseInt(formValues.portions) > 50) {
+      alert("Le nombre de portions ne peut pas dépasser 50.");
+      return;
+    }
+
+    console.log("Commande:", formValues);
   };
 
   return (
@@ -27,7 +38,7 @@ export default function Personnaliser() {
         <h2>Personalisation</h2>
 
         <div className="perso-control">
-          <label htmlFor="portions">Nombre de portions</label>
+          <label htmlFor="portions">Nombre de portions: </label>
           <input
             type="number"
             id="portions"
@@ -41,7 +52,7 @@ export default function Personnaliser() {
         </div>
 
         <div className="perso-control">
-          <label>Gateau</label>
+          <label htmlFor="gateau">Gateau: </label>
           <div className="perso-radio-group">
             <label className="perso-radio-label">
               <input
@@ -65,7 +76,7 @@ export default function Personnaliser() {
         </div>
 
         <div className="perso-control">
-          <label>Saveur :</label>
+          <label htmlFor="saveur">Saveur: </label>
           <div className="perso-radio-group perso-radio-grid">
             <label className="perso-radio-label">
               <input
@@ -125,13 +136,14 @@ export default function Personnaliser() {
         </div>
 
         <div className="perso-control">
-          <label htmlFor="inscription">Inscription :</label>
+          <label htmlFor="inscription">Inscription: </label>
           <input
             type="text"
             id="inscription"
             name="inscription"
             value={formValues.inscription}
             onChange={handleChange}
+            placeholder="ex: Joyeux Anniversaire!"
           />
         </div>
 

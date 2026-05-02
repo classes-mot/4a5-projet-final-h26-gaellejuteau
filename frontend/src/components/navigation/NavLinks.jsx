@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/auth-context.js";
+import { AuthContext } from "../context/auth-context.jsx";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -44,6 +44,14 @@ const NavLinks = () => {
         <>
           <li>
             <NavLink
+              to="/panier"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              {t("panier")}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/accueil"
               onClick={handleLogout}
               className={({ isActive }) => (isActive ? "active" : "")}
@@ -51,11 +59,6 @@ const NavLinks = () => {
               {t("déconnexion")}
             </NavLink>
           </li>
-          {auth.user && (
-            <li className="welcome-message">
-              {t("bienvenue")}, {auth.user.name}!
-            </li>
-          )}
         </>
       ) : (
         <>

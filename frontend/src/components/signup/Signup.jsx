@@ -1,8 +1,13 @@
 import "./Signup.css";
 import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth-context.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false);
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -32,7 +37,9 @@ export default function Signup() {
     };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
-
+    auth.login(newUser);
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/accueil");
     console.log("Utilisateur créé:", newUser);
     event.target.reset();
   }
