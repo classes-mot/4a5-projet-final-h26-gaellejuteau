@@ -1,7 +1,8 @@
 import "./Personnaliser.css";
 import { useState } from "react";
-
-export default function Personnaliser() {
+import { useNavigate } from "react-router-dom";
+export default function Personnaliser({ addToCart }) {
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     portions: "",
     gateau: "",
@@ -21,15 +22,25 @@ export default function Personnaliser() {
 
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!formValues.gateau || !formValues.saveur) {
+      alert("Veuillez choisir un type de gâteau et une saveur.");
+      return;
+    }
 
     if (parseInt(formValues.portions) > 50) {
       alert("Le nombre de portions ne peut pas dépasser 50.");
       return;
     }
 
-    console.log("Commande:", formValues);
+    const prix = formValues.portions * 3.99;
+    const nom = `Gâteau ${formValues.gateau}/${formValues.saveur} pour ${formValues.portions} portions`;
+
+    addToCart(nom, parseFloat(prix.toFixed(2)));
+    navigate("/panier"); // redirige vers le panier
   };
 
   return (
