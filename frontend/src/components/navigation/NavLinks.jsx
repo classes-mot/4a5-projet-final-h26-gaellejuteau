@@ -31,17 +31,17 @@ const NavLinks = () => {
           {t("catalogue")}
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/personnaliser"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          {t("personnaliser")}
-        </NavLink>
-      </li>
 
       {auth.isLoggedIn ? (
         <>
+          <li>
+            <NavLink
+              to="/personnaliser"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              {t("personnaliser")}
+            </NavLink>
+          </li>
           <li>
             <NavLink
               to="/panier"

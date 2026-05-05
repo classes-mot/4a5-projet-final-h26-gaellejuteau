@@ -1,0 +1,91 @@
+.gateau-card {
+  background-color: #fff;
+  border: 2px solid #f9cfe5;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.gateau-card:hover {
+  box-shadow: 0 6px 20px rgba(224, 95, 160, 0.2);
+  transform: translateY(-3px);
+}
+
+.gateau-card-nom {
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+.gateau-card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gateau-tag {
+  background: #fce4f3;
+  color: #e05fa0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.gateau-card-ingredients {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.gateau-card-ingredients li {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.gateau-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  border-top: 1px solid #fce4f3;
+  padding-top: 12px;
+}
+
+.gateau-card-prix {
+  font-weight: 700;
+  color: #e05fa0;
+  font-size: 1rem;
+}
+
+.gateau-card-btn {
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 999px;
+  padding: 7px 20px;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.gateau-card-btn:hover {
+  background: #e05fa0;
+  border-color: #e05fa0;
+  color: #fff;
+}

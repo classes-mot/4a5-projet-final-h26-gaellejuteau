@@ -5,9 +5,11 @@ import Auth from "./containers/Auth";
 import Signup from "./signup/Signup";
 import Personnaliser from "./pages/personnaliser/Personnaliser";
 import Panier from "./pages/panier/Panier";
+import Catalogue from "./pages/catalogue/Catalogue";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useState } from "react";
+import PrivateRoute from "./containers/PrivateRoute";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -35,11 +37,23 @@ const App = () => {
         { path: "signup", element: <Signup /> },
         {
           path: "personnaliser",
-          element: <Personnaliser addToCart={addToCart} />,
+          element: (
+            <PrivateRoute>
+              <Personnaliser addToCart={addToCart} />
+            </PrivateRoute>
+          ),
         },
         {
           path: "panier",
-          element: <Panier cart={cart} updateCart={setCart} />,
+          element: (
+            <PrivateRoute>
+              <Panier cart={cart} updateCart={setCart} />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "catalogue",
+          element: <Catalogue addToCart={addToCart} />,
         },
       ],
     },

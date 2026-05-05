@@ -1,13 +1,15 @@
 import "./Personnaliser.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 export default function Personnaliser({ addToCart }) {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     portions: "",
     gateau: "",
+    cremage: "",
     saveur: "",
-    inscriptions: "",
+    inscription: "",
   });
 
   const handleChange = (e) => {
@@ -26,8 +28,8 @@ export default function Personnaliser({ addToCart }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formValues.gateau || !formValues.saveur) {
-      alert("Veuillez choisir un type de gâteau et une saveur.");
+    if (!formValues.gateau || !formValues.cremage || !formValues.saveur) {
+      alert("Veuillez choisir un type de gâteau, un crémage et une saveur.");
       return;
     }
 
@@ -37,10 +39,10 @@ export default function Personnaliser({ addToCart }) {
     }
 
     const prix = formValues.portions * 3.99;
-    const nom = `Gâteau ${formValues.gateau}/${formValues.saveur} pour ${formValues.portions} portions`;
+    const nom = `Gâteau ${formValues.gateau}/${formValues.cremage}/${formValues.saveur} pour ${formValues.portions} portions`;
 
     addToCart(nom, parseFloat(prix.toFixed(2)));
-    navigate("/panier"); // redirige vers le panier
+    navigate("/panier");
   };
 
   return (
@@ -63,7 +65,7 @@ export default function Personnaliser({ addToCart }) {
         </div>
 
         <div className="perso-control">
-          <label htmlFor="gateau">Gateau: </label>
+          <label>Gateau: </label>
           <div className="perso-radio-group">
             <label className="perso-radio-label">
               <input
@@ -72,7 +74,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Vanille"
                 onChange={handleChange}
               />
-              Vanillle
+              Vanille
             </label>
             <label className="perso-radio-label">
               <input
@@ -87,7 +89,67 @@ export default function Personnaliser({ addToCart }) {
         </div>
 
         <div className="perso-control">
-          <label htmlFor="saveur">Saveur: </label>
+          <label>Crémage: </label>
+          <div className="perso-radio-group perso-radio-grid">
+            <label className="perso-radio-label">
+              <input
+                type="radio"
+                name="cremage"
+                value="Vanille"
+                onChange={handleChange}
+              />
+              Vanille
+            </label>
+            <label className="perso-radio-label">
+              <input
+                type="radio"
+                name="cremage"
+                value="Chocolat"
+                onChange={handleChange}
+              />
+              Chocolat
+            </label>
+            <label className="perso-radio-label">
+              <input
+                type="radio"
+                name="cremage"
+                value="Fraise"
+                onChange={handleChange}
+              />
+              Fraise
+            </label>
+            <label className="perso-radio-label">
+              <input
+                type="radio"
+                name="cremage"
+                value="Caramel"
+                onChange={handleChange}
+              />
+              Caramel
+            </label>
+            <label className="perso-radio-label">
+              <input
+                type="radio"
+                name="cremage"
+                value="Citron"
+                onChange={handleChange}
+              />
+              Citron
+            </label>
+            <label className="perso-radio-label">
+              <input
+                type="radio"
+                name="cremage"
+                value="Oreo"
+                onChange={handleChange}
+              />
+              Oréo
+            </label>
+          </div>
+        </div>
+
+        <div className="perso-control">
+          <label>Saveur: </label>
           <div className="perso-radio-group perso-radio-grid">
             <label className="perso-radio-label">
               <input
@@ -96,7 +158,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Vanille"
                 onChange={handleChange}
               />
-              Vanillle
+              Vanille
             </label>
             <label className="perso-radio-label">
               <input
@@ -142,6 +204,15 @@ export default function Personnaliser({ addToCart }) {
                 onChange={handleChange}
               />
               Citron
+            </label>
+            <label className="perso-radio-label">
+              <input
+                type="radio"
+                name="saveur"
+                value="Framboise"
+                onChange={handleChange}
+              />
+              Framboise
             </label>
           </div>
         </div>

@@ -97,3 +97,27 @@
   background-color: #c0408a;
   border-color: #c0408a;
 }
+
+.portions-input {
+  width: 100px;
+  text-align: center;
+  border: 2.5px solid #f9cfe5;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 1.1rem;
+  outline: none;
+  margin: 12px auto;
+  display: block;
+}
+
+.portions-input:focus {
+  border-color: #e05fa0;
+  box-shadow: 0 0 0 3px rgba(224, 95, 160, 0.15);
+}
+
+.portions-prix {
+  font-weight: 700;
+  color: #e05fa0;
+  font-size: 1rem;
+  margin-top: 4px;
+}
