@@ -25,14 +25,22 @@ const App = () => {
       return [...prevCart, { name, price, amount: 1 }];
     });
   };
+
+  const [commandes, setCommandes] = useState([]);
   const router = createBrowserRouter([
     {
       path: "/",
       element: <RootLayout />,
       errorElement: <ErreurPage />,
       children: [
-        { path: "", element: <Accueil /> },
-        { path: "accueil", element: <Accueil /> },
+        {
+          path: "",
+          element: <Accueil addToCart={addToCart} commandes={commandes} />,
+        },
+        {
+          path: "accueil",
+          element: <Accueil addToCart={addToCart} commandes={commandes} />,
+        },
         { path: "login", element: <Auth /> },
         { path: "signup", element: <Signup /> },
         {
@@ -47,7 +55,11 @@ const App = () => {
           path: "panier",
           element: (
             <PrivateRoute>
-              <Panier cart={cart} updateCart={setCart} />
+              <Panier
+                cart={cart}
+                updateCart={setCart}
+                setCommandes={setCommandes}
+              />
             </PrivateRoute>
           ),
         },

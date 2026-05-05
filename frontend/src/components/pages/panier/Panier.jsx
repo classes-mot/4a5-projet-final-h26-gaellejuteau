@@ -4,7 +4,7 @@ import Modal from "../../context/Modal.jsx";
 const LIVRAISON = 5.99;
 const TAXE = 0.15;
 
-export default function Panier({ cart, updateCart }) {
+export default function Panier({ cart, updateCart, setCommandes }) {
   const sousTotal = cart.reduce(
     (total, item) => total + item.price * item.amount,
     0,
@@ -110,6 +110,14 @@ export default function Panier({ cart, updateCart }) {
           isOpen={showConfirmModal}
           onClose={() => setShowConfirmModal(false)}
           onConfirm={() => {
+            setCommandes((prev) => [
+              ...prev,
+              {
+                nom: `Commande du ${new Date().toLocaleDateString()}`,
+                total: total,
+                date: new Date().toLocaleDateString(),
+              },
+            ]);
             updateCart([]);
             setShowConfirmModal(false);
           }}

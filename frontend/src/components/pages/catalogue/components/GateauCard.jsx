@@ -18,7 +18,7 @@ export default function GateauCard({ gateau, addToCart }) {
   };
 
   const handleConfirm = (portions) => {
-    const prix = portions * 4.99;
+    const prix = portions * 3.49;
     addToCart(
       `${gateau.nom} pour ${portions} portions`,
       parseFloat(prix.toFixed(2)),
@@ -35,7 +35,7 @@ export default function GateauCard({ gateau, addToCart }) {
         <span className="gateau-tag">✨ {gateau.saveur}</span>
       </div>
       <div className="gateau-card-footer">
-        <span className="gateau-card-prix">4.99$ / portion</span>
+        <span className="gateau-card-prix">3.49$ / portion</span>
         <button className="gateau-card-btn" onClick={handleAjouter}>
           Ajouter
         </button>
