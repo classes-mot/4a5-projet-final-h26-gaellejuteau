@@ -1,13 +1,31 @@
 import "./Catalogue.css";
 import GateauCard from "./components/GateauCard";
-import { gateaux } from "../../data/gateaux";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useHttpClient } from "../../hooks/http-hook.js";
+import { useTranslation } from "react-i18next";
 
 const GATEAUX = ["Tous", "Vanille", "Chocolat"];
 
 export default function Catalogue({ addToCart }) {
   const [gateauActive, setGateauActive] = useState("Tous");
+  const [gateaux, setGateaux] = useState([]);
+  const { sendRequest } = useHttpClient();
+  const { t } = useTranslation();
 
+  useEffect(() => {
+    const fetchGateaux = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/gateaux",
+        );
+        setGateaux(responseData.gateaux);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchGateaux();
+  }, [sendRequest]);
   const filtres =
     gateauActive === "Tous"
       ? gateaux
@@ -15,7 +33,7 @@ export default function Catalogue({ addToCart }) {
 
   return (
     <div className="catalogue-wrapper">
-      <h2 className="catalogue-titre">Catalogue</h2>
+      <h2 className="catalogue-titre">{t("catalogueTitre")}</h2>
 
       <div className="catalogue-filtres">
         {GATEAUX.map((g) => (
@@ -24,14 +42,14 @@ export default function Catalogue({ addToCart }) {
             className={`filtre-btn ${gateauActive === g ? "filtre-btn-active" : ""}`}
             onClick={() => setGateauActive(g)}
           >
-            {g}
+            {t(g)}
           </button>
         ))}
       </div>
 
       <div className="catalogue-grid">
         {filtres.map((gateau) => (
-          <GateauCard key={gateau.id} gateau={gateau} addToCart={addToCart} />
+          <GateauCard key={gateau._id} gateau={gateau} addToCart={addToCart} />
         ))}
       </div>
     </div>

@@ -3,12 +3,13 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/auth-context.jsx";
 import { useNavigate } from "react-router-dom";
 import PortionsModal from "../../../context/PortionsModal.jsx";
+import { useTranslation } from "react-i18next";
 
 export default function GateauCard({ gateau, addToCart }) {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-
+  const { t } = useTranslation();
   const handleAjouter = () => {
     if (!auth.isLoggedIn) {
       navigate("/login");
@@ -37,7 +38,7 @@ export default function GateauCard({ gateau, addToCart }) {
       <div className="gateau-card-footer">
         <span className="gateau-card-prix">3.49$ / portion</span>
         <button className="gateau-card-btn" onClick={handleAjouter}>
-          Ajouter
+          {t("ajouter")}
         </button>
       </div>
 

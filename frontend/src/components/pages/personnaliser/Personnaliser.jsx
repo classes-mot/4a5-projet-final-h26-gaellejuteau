@@ -1,9 +1,11 @@
 import "./Personnaliser.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Personnaliser({ addToCart }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [formValues, setFormValues] = useState({
     portions: "",
     gateau: "",
@@ -14,33 +16,27 @@ export default function Personnaliser({ addToCart }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "portions") {
       if (value === "" || parseInt(value) <= 50) {
         setFormValues((prev) => ({ ...prev, [name]: value }));
       }
       return;
     }
-
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!formValues.gateau || !formValues.cremage || !formValues.saveur) {
-      alert("Veuillez choisir un type de gâteau, un crémage et une saveur.");
+      alert(t("alerteChoix"));
       return;
     }
-
     if (parseInt(formValues.portions) > 50) {
-      alert("Le nombre de portions ne peut pas dépasser 50.");
+      alert(t("alertePortions"));
       return;
     }
-
     const prix = formValues.portions * 3.99;
     const nom = `Gâteau ${formValues.gateau}/${formValues.cremage}/${formValues.saveur} pour ${formValues.portions} portions`;
-
     addToCart(nom, parseFloat(prix.toFixed(2)));
     navigate("/panier");
   };
@@ -48,10 +44,10 @@ export default function Personnaliser({ addToCart }) {
   return (
     <div className="perso-wrapper">
       <form className="perso-form" onSubmit={handleSubmit}>
-        <h2>Personalisation</h2>
+        <h2>{t("personalisation")}</h2>
 
         <div className="perso-control">
-          <label htmlFor="portions">Nombre de portions: </label>
+          <label htmlFor="portions">{t("nbPortions")} : </label>
           <input
             type="number"
             id="portions"
@@ -65,7 +61,7 @@ export default function Personnaliser({ addToCart }) {
         </div>
 
         <div className="perso-control">
-          <label>Gateau: </label>
+          <label>{t("gateau")} : </label>
           <div className="perso-radio-group">
             <label className="perso-radio-label">
               <input
@@ -74,7 +70,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Vanille"
                 onChange={handleChange}
               />
-              Vanille
+              {t("Vanille")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -83,13 +79,13 @@ export default function Personnaliser({ addToCart }) {
                 value="Chocolat"
                 onChange={handleChange}
               />
-              Chocolat
+              {t("Chocolat")}
             </label>
           </div>
         </div>
 
         <div className="perso-control">
-          <label>Crémage: </label>
+          <label>{t("cremage")} : </label>
           <div className="perso-radio-group perso-radio-grid">
             <label className="perso-radio-label">
               <input
@@ -98,7 +94,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Vanille"
                 onChange={handleChange}
               />
-              Vanille
+              {t("Vanille")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -107,7 +103,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Chocolat"
                 onChange={handleChange}
               />
-              Chocolat
+              {t("Chocolat")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -116,7 +112,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Fraise"
                 onChange={handleChange}
               />
-              Fraise
+              {t("Fraise")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -125,7 +121,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Caramel"
                 onChange={handleChange}
               />
-              Caramel
+              {t("Caramel")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -134,7 +130,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Citron"
                 onChange={handleChange}
               />
-              Citron
+              {t("Citron")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -143,13 +139,13 @@ export default function Personnaliser({ addToCart }) {
                 value="Oreo"
                 onChange={handleChange}
               />
-              Oréo
+              {t("Oreo")}
             </label>
           </div>
         </div>
 
         <div className="perso-control">
-          <label>Saveur: </label>
+          <label>{t("saveur")} : </label>
           <div className="perso-radio-group perso-radio-grid">
             <label className="perso-radio-label">
               <input
@@ -158,7 +154,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Vanille"
                 onChange={handleChange}
               />
-              Vanille
+              {t("Vanille")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -167,7 +163,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Mangue"
                 onChange={handleChange}
               />
-              Mangue
+              {t("Mangue")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -176,7 +172,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Chocolat"
                 onChange={handleChange}
               />
-              Chocolat
+              {t("Chocolat")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -185,7 +181,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Cerise"
                 onChange={handleChange}
               />
-              Cerise
+              {t("Cerise")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -194,7 +190,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Fraise"
                 onChange={handleChange}
               />
-              Fraise
+              {t("Fraise")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -203,7 +199,7 @@ export default function Personnaliser({ addToCart }) {
                 value="Citron"
                 onChange={handleChange}
               />
-              Citron
+              {t("Citron")}
             </label>
             <label className="perso-radio-label">
               <input
@@ -212,26 +208,26 @@ export default function Personnaliser({ addToCart }) {
                 value="Framboise"
                 onChange={handleChange}
               />
-              Framboise
+              {t("Framboise")}
             </label>
           </div>
         </div>
 
         <div className="perso-control">
-          <label htmlFor="inscription">Inscription: </label>
+          <label htmlFor="inscription">{t("inscription")} : </label>
           <input
             type="text"
             id="inscription"
             name="inscription"
             value={formValues.inscription}
             onChange={handleChange}
-            placeholder="ex: Joyeux Anniversaire!"
+            placeholder={t("inscriptionPlaceholder")}
           />
         </div>
 
         <div className="perso-btn-wrapper">
           <button type="submit" className="perso-btn">
-            Passer la commande
+            {t("passerCommande")}
           </button>
         </div>
       </form>

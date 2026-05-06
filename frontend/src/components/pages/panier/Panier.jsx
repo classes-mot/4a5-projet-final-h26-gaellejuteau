@@ -1,10 +1,15 @@
 import "./Panier.css";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Modal from "../../context/Modal.jsx";
+
 const LIVRAISON = 5.99;
 const TAXE = 0.15;
 
 export default function Panier({ cart, updateCart, setCommandes }) {
+  const { t } = useTranslation();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   const sousTotal = cart.reduce(
     (total, item) => total + item.price * item.amount,
     0,
@@ -30,19 +35,18 @@ export default function Panier({ cart, updateCart, setCommandes }) {
         .filter((item) => item.amount > 0),
     );
   };
+
   const handleDelete = (name) => {
     updateCart(cart.filter((item) => item.name !== name));
   };
 
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-
   return (
     <div className="panier-wrapper">
       <div className="panier-card">
-        <h2>Panier</h2>
+        <h2>{t("panierTitre")}</h2>
 
         {cart.length === 0 ? (
-          <p className="panier-empty">Votre panier est vide 🎂</p>
+          <p className="panier-empty">{t("panierVide")}</p>
         ) : (
           <>
             <ul className="panier-list">
@@ -79,19 +83,19 @@ export default function Panier({ cart, updateCart, setCommandes }) {
 
             <div className="panier-summary">
               <div className="panier-summary-row">
-                <span>Sous-total</span>
+                <span>{t("sousTotal")}</span>
                 <span>{sousTotal.toFixed(2)}$</span>
               </div>
               <div className="panier-summary-row">
-                <span>Livraison</span>
+                <span>{t("livraison")}</span>
                 <span>{livraison.toFixed(2)}$</span>
               </div>
               <div className="panier-summary-row">
-                <span>Taxes</span>
+                <span>{t("taxes")}</span>
                 <span>{taxe.toFixed(2)}$</span>
               </div>
               <div className="panier-summary-row panier-total">
-                <span>Total</span>
+                <span>{t("total")}</span>
                 <span>{total.toFixed(2)}$</span>
               </div>
             </div>
@@ -101,7 +105,7 @@ export default function Panier({ cart, updateCart, setCommandes }) {
                 className="panier-btn"
                 onClick={() => setShowConfirmModal(true)}
               >
-                Passer la commande
+                {t("passerCommande")}
               </button>
             </div>
           </>

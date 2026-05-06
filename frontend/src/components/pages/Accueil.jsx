@@ -2,43 +2,62 @@ import "./Accueil.css";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth-context.jsx";
-import { gateaux } from "../data/gateaux";
+import { useEffect, useState } from "react";
+import { useHttpClient } from "../hooks/http-hook.js";
+import { useTranslation } from "react-i18next";
 import GateauCard from "./catalogue/components/GateauCard";
 
 const Accueil = ({ addToCart, commandes }) => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const apercu = gateaux.slice(0, 3);
-
+  const { t } = useTranslation();
+  const { sendRequest } = useHttpClient();
+  const [apercu, setApercu] = useState([]);
+  useEffect(() => {
+    const fetchApercu = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/gateaux",
+        );
+        setApercu(responseData.gateaux.slice(0, 3));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchApercu();
+  }, [sendRequest]);
   return (
     <div className="accueil-wrapper">
       <section className="accueil-hero">
-        <h1>Des gâteaux faits avec amour 🎂</h1>
-        <p>Commandez ou personnalisez votre gâteau de rêve</p>
+        <h1>{t("gateauxAmour")}</h1>
+        <p>{t("soustitre")}</p>
         <div className="accueil-hero-btns">
           <button
             className="accueil-btn-primary"
             onClick={() => navigate("/catalogue")}
           >
-            Voir le catalogue
+            {t("voirCatalogue")}
           </button>
           {auth.isLoggedIn && (
             <button
               className="accueil-btn-secondary"
               onClick={() => navigate("/personnaliser")}
             >
-              Personnaliser
+              {t("personnaliser")}
             </button>
           )}
         </div>
       </section>
 
       <section className="accueil-section">
-        <h2 className="accueil-section-titre">Catalogue...</h2>
+        <h2 className="accueil-section-titre">{t("catalogueTitre")}</h2>
         <div className="accueil-grid">
           {apercu.map((gateau) => (
-            <GateauCard key={gateau.id} gateau={gateau} addToCart={addToCart} />
+            <GateauCard
+              key={gateau._id}
+              gateau={gateau}
+              addToCart={addToCart}
+            />
           ))}
         </div>
         <div className="accueil-plus-wrapper">
@@ -46,14 +65,14 @@ const Accueil = ({ addToCart, commandes }) => {
             className="accueil-btn-plus"
             onClick={() => navigate("/catalogue")}
           >
-            Plus
+            {t("plus")}
           </button>
         </div>
       </section>
 
       {auth.isLoggedIn && (
         <section className="accueil-section">
-          <h2 className="accueil-section-titre">Historique des commandes</h2>
+          <h2 className="accueil-section-titre">{t("historiqueCommandes")}</h2>
           {commandes && commandes.length > 0 ? (
             <ul className="accueil-historique">
               {commandes.map((commande, index) => (
@@ -67,9 +86,7 @@ const Accueil = ({ addToCart, commandes }) => {
               ))}
             </ul>
           ) : (
-            <p className="accueil-empty">
-              Vous n'avez pas encore de commandes 🎂
-            </p>
+            <p className="accueil-empty">{t("pasDeCommandes")}</p>
           )}
         </section>
       )}
