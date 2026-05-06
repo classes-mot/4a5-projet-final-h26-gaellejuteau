@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const gateauSchema = new mongoose.Schema({
-  nbPortion: { type: Number, required: true },
+  nom: { type: String, required: true },
+  nbPortion: { type: Number },
   gateau: { type: String, required: true },
   saveur: { type: String, required: true },
   cremage: { type: String, required: true },
