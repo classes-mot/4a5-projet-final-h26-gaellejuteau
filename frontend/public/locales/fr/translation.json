@@ -6,5 +6,18 @@
   "inscription": "Inscription",
   "bienvenue": "Bienvenue",
   "deconnexion": "Déconnexion",
-  "panier": "Panier"
+  "panier": "Panier",
+  "courriel": "Courriel",
+  "motDePasse": "Mot de passe",
+  "confirmerMotDePasse": "Confirmer le mot de passe",
+  "nomUtilisateur": "Nom d'utilisateur",
+  "adresse": "Adresse",
+  "numTel": "Num tél",
+  "adresseCourriel": "Adresse courriel",
+  "creerCompte": "Créer un compte",
+  "creation": "Création...",
+  "sinscrire": "S'inscrire",
+  "connexionBtn": "Connexion",
+  "connexionEnCours": "Connexion...",
+  "motDePasseIdentique": "Le mot de passe doit être identique."
 }

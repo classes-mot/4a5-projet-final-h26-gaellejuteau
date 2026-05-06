@@ -1,20 +1,20 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth-context.jsx";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useHttpClient } from "../hooks/http-hook.js";
 import "./LoginForm.css";
 
 export default function LoginForm() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [enteredValues, setEnteredValues] = useState({
     email: "",
     password: "",
   });
-
-  const [error, setError] = useState("");
 
   const handlerInputChange = (identifier, value) => {
     setEnteredValues((prevValues) => ({
@@ -23,37 +23,41 @@ export default function LoginForm() {
     }));
   };
 
-  const authSubmitHandler = (event) => {
+  const authSubmitHandler = async (event) => {
     event.preventDefault();
-
-    const { email, password } = enteredValues;
-
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-
-    const foundUser = users.find(
-      (u) => u.email === email && u.password === password,
-    );
-
-    if (foundUser) {
-      auth.login(foundUser);
-      localStorage.setItem("isLoggedIn", "true");
-      setError("");
-      navigate("/");
-    } else {
-      setError("Identifiants invalides.");
+    try {
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/users/login",
+        "POST",
+        JSON.stringify({
+          email: enteredValues.email,
+          motDePasse: enteredValues.password,
+        }),
+        { "Content-Type": "application/json" },
+      );
+      localStorage.setItem("token", responseData.token);
+      localStorage.setItem("userId", responseData.userId);
+      auth.login({ id: responseData.userId, email: responseData.email });
+      navigate("/accueil");
+    } catch (err) {
+      console.error(err);
     }
   };
 
   return (
     <div className="login-wrapper">
       <form className="login-form" onSubmit={authSubmitHandler}>
-        <h2>Connexion</h2>
+        <h2>{t("connexion")}</h2>
 
-        {error && <p className="control-error">{error}</p>}
+        {error && (
+          <p className="control-error" onClick={clearError}>
+            {error}
+          </p>
+        )}
 
         <div className="control-row">
           <div className="control no-margin">
-            <label htmlFor="email">Courriel :</label>
+            <label htmlFor="email">{t("courriel")} :</label>
             <input
               id="email"
               type="email"
@@ -67,7 +71,7 @@ export default function LoginForm() {
 
         <div className="control-row">
           <div className="control no-margin">
-            <label htmlFor="password">Mot de passe :</label>
+            <label htmlFor="password">{t("motDePasse")} :</label>
             <input
               id="password"
               type="password"
@@ -81,10 +85,10 @@ export default function LoginForm() {
 
         <p className="form-actions">
           <Link to="/signup">
-            <button className="button button-flat">S'inscrire</button>
+            <button className="button button-flat">{t("sinscrire")}</button>
           </Link>
-          <button type="submit" className="button">
-            Connexion
+          <button type="submit" className="button" disabled={isLoading}>
+            {isLoading ? t("connexionEnCours") : t("connexionBtn")}
           </button>
         </p>
       </form>

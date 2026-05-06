@@ -6,5 +6,18 @@
   "inscription": "Sign up",
   "bienvenue": "Welcome",
   "deconnexion": "Logout",
-  "panier": "Cart"
+  "panier": "Cart",
+  "courriel": "Email",
+  "motDePasse": "Password",
+  "confirmerMotDePasse": "Confirm password",
+  "nomUtilisateur": "Username",
+  "adresse": "Address",
+  "numTel": "Phone number",
+  "adresseCourriel": "Email address",
+  "creerCompte": "Create account",
+  "creation": "Creating...",
+  "sinscrire": "Sign up",
+  "connexionBtn": "Login",
+  "connexionEnCours": "Logging in...",
+  "motDePasseIdentique": "Passwords must match."
 }

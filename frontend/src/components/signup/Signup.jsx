@@ -1,15 +1,18 @@
 import "./Signup.css";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../context/auth-context.jsx";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useHttpClient } from "../hooks/http-hook.js";
 
 export default function Signup() {
   const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
@@ -21,53 +24,58 @@ export default function Signup() {
 
     setPasswordAreNotEqual(false);
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-
-    if (users.some((u) => u.email === data.email)) {
-      alert("Un compte avec cet email existe déjà.");
-      return;
+    try {
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/users/register",
+        "POST",
+        JSON.stringify({
+          username: data.username,
+          email: data.email,
+          motDePasse: data.password,
+          adresse: data.adresse,
+          numTel: data.phone,
+        }),
+        { "Content-Type": "application/json" },
+      );
+      localStorage.setItem("token", responseData.token);
+      localStorage.setItem("userId", responseData.userId);
+      auth.login({ id: responseData.userId, email: responseData.email });
+      navigate("/accueil");
+    } catch (err) {
+      console.error(err);
     }
-
-    const newUser = {
-      username: data.username,
-      email: data.email,
-      password: data.password,
-      adresse: data.adresse,
-      phone: data.phone,
-    };
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-    auth.login(newUser);
-    localStorage.setItem("isLoggedIn", "true");
-    navigate("/accueil");
-    console.log("Utilisateur créé:", newUser);
-    event.target.reset();
   }
 
   return (
     <div className="page-wrapper">
       <form className="signup-form" onSubmit={handleSubmit}>
-        <h2>Inscription</h2>
+        <h2>{t("inscription")}</h2>
+
+        {error && (
+          <p className="control-error" onClick={clearError}>
+            {error}
+          </p>
+        )}
 
         <div className="form-grid">
           <div className="control">
-            <label htmlFor="username">Nom d'utilisateur :</label>
+            <label htmlFor="username">{t("nomUtilisateur")} :</label>
             <input type="text" id="username" name="username" required />
           </div>
 
           <div className="control">
-            <label htmlFor="adresse">Adresse :</label>
+            <label htmlFor="adresse">{t("adresse")} :</label>
             <input type="text" id="adresse" name="adresse" />
           </div>
 
           <div className="control">
-            <label htmlFor="password">Mot de passe :</label>
+            <label htmlFor="password">{t("motDePasse")} :</label>
             <input type="password" id="password" name="password" required />
           </div>
 
           <div className="control">
             <label htmlFor="confirm-password">
-              Confirmer le mot de passe :
+              {t("confirmerMotDePasse")} :
             </label>
             <input
               type="password"
@@ -77,25 +85,25 @@ export default function Signup() {
             />
             {passwordAreNotEqual && (
               <div className="control-error">
-                <p>Le mot de passe doit être identique.</p>
+                <p>{t("motDePasseIdentique")}</p>
               </div>
             )}
           </div>
 
           <div className="control">
-            <label htmlFor="phone">Num tél :</label>
+            <label htmlFor="phone">{t("numTel")} :</label>
             <input type="tel" id="phone" name="phone" />
           </div>
 
           <div className="control">
-            <label htmlFor="email">Adresse couriel :</label>
+            <label htmlFor="email">{t("adresseCourriel")} :</label>
             <input type="email" id="email" name="email" required />
           </div>
         </div>
 
         <div className="btn-wrapper">
-          <button type="submit" className="btn-submit">
-            Créer un compte
+          <button type="submit" className="btn-submit" disabled={isLoading}>
+            {isLoading ? t("creation") : t("creerCompte")}
           </button>
         </div>
       </form>
