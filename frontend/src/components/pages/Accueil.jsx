@@ -18,7 +18,7 @@ const Accueil = ({ addToCart }) => {
     const fetchApercu = async () => {
       try {
         const responseData = await sendRequest(
-          "https://projet-final-nu0v.onrender.com/api/gateaux",
+          `${import.meta.env.VITE_BACKEND_URL}/gateaux`,
         );
         setApercu(responseData.gateaux.slice(0, 3));
       } catch (err) {
@@ -36,7 +36,7 @@ const Accueil = ({ addToCart }) => {
 
       try {
         const responseData = await sendRequest(
-          `https://projet-final-nu0v.onrender.com/api/commandes/${userId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/commandes/${userId}`,
           "GET",
           null,
           { Authorization: `Bearer ${token}` },

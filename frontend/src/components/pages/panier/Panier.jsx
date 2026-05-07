@@ -52,7 +52,7 @@ export default function Panier({ cart, updateCart }) {
 
     try {
       await sendRequest(
-        "https://projet-final-nu0v.onrender.com/api/commandes",
+        `${import.meta.env.VITE_BACKEND_URL}/commandes`,
         "POST",
         JSON.stringify({
           gateau: nomCommande,

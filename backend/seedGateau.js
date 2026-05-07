@@ -79,7 +79,11 @@ const gateaux = [
 ];
 
 const seed = async () => {
-  await connectDB();
+  await mongoose.connect(
+    "mongodb+srv://gaelle_user:GaelleProjet2026@cluster0test.hz379kf.mongodb.net/bdProjetSynthese?appName=Cluster0test",
+  );
+  console.log("Connexion MongoDB réussie");
+
   await Gateau.deleteMany();
   await Gateau.insertMany(gateaux);
   console.log("Gâteaux insérés !");

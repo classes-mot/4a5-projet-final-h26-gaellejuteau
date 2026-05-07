@@ -26,7 +26,7 @@ export default function Signup() {
 
     try {
       const responseData = await sendRequest(
-        "https://projet-final-nu0v.onrender.com/api/users/register",
+        `${import.meta.env.VITE_BACKEND_URL}/users/register`,
         "POST",
         JSON.stringify({
           username: data.username,

@@ -1,7 +1,6 @@
 import "./Catalogue.css";
 import GateauCard from "./components/GateauCard";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useHttpClient } from "../../hooks/http-hook.js";
 import { useTranslation } from "react-i18next";
 
@@ -17,7 +16,7 @@ export default function Catalogue({ addToCart }) {
     const fetchGateaux = async () => {
       try {
         const responseData = await sendRequest(
-          "https://projet-final-nu0v.onrender.com/api/gateaux",
+          `${import.meta.env.VITE_BACKEND_URL}/gateaux`,
         );
         setGateaux(responseData.gateaux);
       } catch (err) {
@@ -26,6 +25,7 @@ export default function Catalogue({ addToCart }) {
     };
     fetchGateaux();
   }, [sendRequest]);
+
   const filtres =
     gateauActive === "Tous"
       ? gateaux

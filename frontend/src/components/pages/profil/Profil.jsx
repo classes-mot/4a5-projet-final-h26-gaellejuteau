@@ -22,12 +22,11 @@ export default function Profil() {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
-  // Charger les infos du profil
   useEffect(() => {
     const fetchProfil = async () => {
       try {
         const responseData = await sendRequest(
-          `https://projet-final-nu0v.onrender.com/api/users/${userId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/users/profile/${userId}`,
           "GET",
           null,
           { Authorization: `Bearer ${token}` },
@@ -49,12 +48,11 @@ export default function Profil() {
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Modifier le profil
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       await sendRequest(
-        `https://projet-final-nu0v.onrender.com/api/users/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/users/profile/${userId}`,
         "PUT",
         JSON.stringify(formValues),
         { Authorization: `Bearer ${token}` },
@@ -65,11 +63,10 @@ export default function Profil() {
     }
   };
 
-  // Supprimer le compte
   const handleDelete = async () => {
     try {
       await sendRequest(
-        `https://projet-final-nu0v.onrender.com/api/users/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/users/profile/${userId}`,
         "DELETE",
         null,
         { Authorization: `Bearer ${token}` },
@@ -168,7 +165,6 @@ export default function Profil() {
           </button>
         </div>
 
-        {/* Modal confirmation suppression */}
         {showDeleteModal && (
           <>
             <div
