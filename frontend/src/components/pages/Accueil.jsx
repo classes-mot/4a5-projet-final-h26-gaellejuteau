@@ -1,18 +1,19 @@
 import "./Accueil.css";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth-context.jsx";
-import { useEffect, useState } from "react";
 import { useHttpClient } from "../hooks/http-hook.js";
 import { useTranslation } from "react-i18next";
 import GateauCard from "./catalogue/components/GateauCard";
 
-const Accueil = ({ addToCart, commandes }) => {
+const Accueil = ({ addToCart }) => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { sendRequest } = useHttpClient();
   const [apercu, setApercu] = useState([]);
+  const [commandes, setCommandes] = useState([]);
+
   useEffect(() => {
     const fetchApercu = async () => {
       try {
@@ -26,6 +27,29 @@ const Accueil = ({ addToCart, commandes }) => {
     };
     fetchApercu();
   }, [sendRequest]);
+
+  useEffect(() => {
+    const fetchCommandes = async () => {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+      if (!userId || !token) return;
+
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/commandes/${userId}`,
+          "GET",
+          null,
+          { Authorization: `Bearer ${token}` },
+        );
+        setCommandes(responseData.commandes);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (auth.isLoggedIn) fetchCommandes();
+  }, [sendRequest, auth.isLoggedIn]);
+
   return (
     <div className="accueil-wrapper">
       <section className="accueil-hero">
@@ -77,11 +101,13 @@ const Accueil = ({ addToCart, commandes }) => {
             <ul className="accueil-historique">
               {commandes.map((commande, index) => (
                 <li key={index} className="accueil-historique-item">
-                  <span className="historique-nom">{commande.nom}</span>
+                  <span className="historique-nom">{commande.gateau}</span>
                   <span className="historique-prix">
-                    {commande.total.toFixed(2)}$
+                    {commande.prix.toFixed(2)}$
                   </span>
-                  <span className="historique-date">{commande.date}</span>
+                  <span className="historique-date">
+                    {new Date(commande.date).toLocaleDateString()}
+                  </span>
                 </li>
               ))}
             </ul>

@@ -18,4 +18,6 @@ router.post("/login", userController.login);
 // PUT /api/users/profile/:userId — modifier les infos du user
 router.put("/profile/:userId", userController.updateUserById);
 
+router.delete("/profile/:userId", userController.deleteUser);
+
 export default router;

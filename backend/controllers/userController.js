@@ -143,5 +143,21 @@ const updateUserById = async (req, res, next) => {
 
   res.status(200).json({ user });
 };
+const deleteUser = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    await UserPersonnel.findByIdAndDelete(userId);
+  } catch (err) {
+    return next(new HttpError("Erreur serveur.", 500));
+  }
+  res.json({ message: "Compte supprimé." });
+};
 
-export default { getUsers, getUserById, register, login, updateUserById };
+export default {
+  getUsers,
+  getUserById,
+  register,
+  login,
+  updateUserById,
+  deleteUser,
+};

@@ -52,5 +52,15 @@
   "sousTotal": "Sous-total",
   "livraison": "Livraison",
   "taxes": "Taxes",
-  "total": "Total"
+  "total": "Total",
+  "profil": "Profil",
+  "modifier": "Modifier",
+  "annuler": "Annuler",
+  "sauvegarder": "Sauvegarder",
+  "sauvegarde": "Sauvegarde...",
+  "supprimerCompte": "Supprimer mon compte",
+  "confirmerSuppression": "Supprimer le compte ?",
+  "suppressionMessage": "Voulez-vous vraiment supprimer votre compte ?",
+  "actionIrreversible": "Cette action est irréversible.",
+  "supprimer": "Supprimer"
 }

@@ -6,6 +6,8 @@ import Signup from "./signup/Signup";
 import Personnaliser from "./pages/personnaliser/Personnaliser";
 import Panier from "./pages/panier/Panier";
 import Catalogue from "./pages/catalogue/Catalogue";
+import Profil from "./pages/profil/Profil";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useState } from "react";
@@ -26,21 +28,14 @@ const App = () => {
     });
   };
 
-  const [commandes, setCommandes] = useState([]);
   const router = createBrowserRouter([
     {
       path: "/",
       element: <RootLayout />,
       errorElement: <ErreurPage />,
       children: [
-        {
-          path: "",
-          element: <Accueil addToCart={addToCart} commandes={commandes} />,
-        },
-        {
-          path: "accueil",
-          element: <Accueil addToCart={addToCart} commandes={commandes} />,
-        },
+        { path: "", element: <Accueil addToCart={addToCart} /> },
+        { path: "accueil", element: <Accueil addToCart={addToCart} /> },
         { path: "login", element: <Auth /> },
         { path: "signup", element: <Signup /> },
         {
@@ -55,17 +50,18 @@ const App = () => {
           path: "panier",
           element: (
             <PrivateRoute>
-              <Panier
-                cart={cart}
-                updateCart={setCart}
-                setCommandes={setCommandes}
-              />
+              <Panier cart={cart} updateCart={setCart} />
             </PrivateRoute>
           ),
         },
+        { path: "catalogue", element: <Catalogue addToCart={addToCart} /> },
         {
-          path: "catalogue",
-          element: <Catalogue addToCart={addToCart} />,
+          path: "profil",
+          element: (
+            <PrivateRoute>
+              <Profil />
+            </PrivateRoute>
+          ),
         },
       ],
     },

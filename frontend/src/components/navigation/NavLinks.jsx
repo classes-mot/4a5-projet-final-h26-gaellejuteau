@@ -59,6 +59,14 @@ const NavLinks = () => {
               {t("déconnexion")}
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/profil"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              {t("profil")}
+            </NavLink>
+          </li>
         </>
       ) : (
         <>

@@ -1,13 +1,15 @@
 import "./Panier.css";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useHttpClient } from "../../hooks/http-hook.js";
 import Modal from "../../context/Modal.jsx";
 
 const LIVRAISON = 5.99;
 const TAXE = 0.15;
 
-export default function Panier({ cart, updateCart, setCommandes }) {
+export default function Panier({ cart, updateCart }) {
   const { t } = useTranslation();
+  const { sendRequest } = useHttpClient();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const sousTotal = cart.reduce(
@@ -38,6 +40,32 @@ export default function Panier({ cart, updateCart, setCommandes }) {
 
   const handleDelete = (name) => {
     updateCart(cart.filter((item) => item.name !== name));
+  };
+
+  const handleConfirmCommande = async () => {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+
+    const nomCommande = cart
+      .map((item) => `${item.name} x${item.amount}`)
+      .join(", ");
+
+    try {
+      await sendRequest(
+        "http://localhost:5000/api/commandes",
+        "POST",
+        JSON.stringify({
+          gateau: nomCommande,
+          prix: total,
+          client: userId,
+        }),
+        { Authorization: `Bearer ${token}` },
+      );
+      updateCart([]);
+      setShowConfirmModal(false);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -113,18 +141,7 @@ export default function Panier({ cart, updateCart, setCommandes }) {
         <Modal
           isOpen={showConfirmModal}
           onClose={() => setShowConfirmModal(false)}
-          onConfirm={() => {
-            setCommandes((prev) => [
-              ...prev,
-              {
-                nom: `Commande du ${new Date().toLocaleDateString()}`,
-                total: total,
-                date: new Date().toLocaleDateString(),
-              },
-            ]);
-            updateCart([]);
-            setShowConfirmModal(false);
-          }}
+          onConfirm={handleConfirmCommande}
         />
       </div>
     </div>

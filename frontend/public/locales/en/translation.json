@@ -52,5 +52,15 @@
   "sousTotal": "Subtotal",
   "livraison": "Shipping",
   "taxes": "Taxes",
-  "total": "Total"
+  "total": "Total",
+  "profil": "Profile",
+  "modifier": "Edit",
+  "annuler": "Cancel",
+  "sauvegarder": "Save",
+  "sauvegarde": "Saving...",
+  "supprimerCompte": "Delete my account",
+  "confirmerSuppression": "Delete account?",
+  "suppressionMessage": "Are you sure you want to delete your account?",
+  "actionIrreversible": "This action is irreversible.",
+  "supprimer": "Delete"
 }
