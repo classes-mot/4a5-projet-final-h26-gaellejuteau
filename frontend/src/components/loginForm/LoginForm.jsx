@@ -27,13 +27,15 @@ export default function LoginForm() {
     event.preventDefault();
     try {
       const responseData = await sendRequest(
-        "http://localhost:5000/api/users/login",
+        "https://projet-final-nu0v.onrender.com/api/users/login",
         "POST",
         JSON.stringify({
           email: enteredValues.email,
           motDePasse: enteredValues.password,
         }),
-        { "Content-Type": "application/json" },
+        {
+          "Content-Type": "application/json",
+        },
       );
       localStorage.setItem("token", responseData.token);
       localStorage.setItem("userId", responseData.userId);

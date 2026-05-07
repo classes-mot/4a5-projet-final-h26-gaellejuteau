@@ -27,7 +27,7 @@ export default function Profil() {
     const fetchProfil = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/users/profile/${userId}`,
+          `https://projet-final-nu0v.onrender.com/api/users/${userId}`,
           "GET",
           null,
           { Authorization: `Bearer ${token}` },
@@ -54,7 +54,7 @@ export default function Profil() {
     e.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:5000/api/users/profile/${userId}`,
+        `https://projet-final-nu0v.onrender.com/api/users/${userId}`,
         "PUT",
         JSON.stringify(formValues),
         { Authorization: `Bearer ${token}` },
@@ -69,7 +69,7 @@ export default function Profil() {
   const handleDelete = async () => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/users/profile/${userId}`,
+        `https://projet-final-nu0v.onrender.com/api/users/${userId}`,
         "DELETE",
         null,
         { Authorization: `Bearer ${token}` },

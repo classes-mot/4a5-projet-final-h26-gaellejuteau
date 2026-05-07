@@ -26,7 +26,7 @@ export default function Signup() {
 
     try {
       const responseData = await sendRequest(
-        "http://localhost:5000/api/users/register",
+        "https://projet-final-nu0v.onrender.com/api/users/register",
         "POST",
         JSON.stringify({
           username: data.username,

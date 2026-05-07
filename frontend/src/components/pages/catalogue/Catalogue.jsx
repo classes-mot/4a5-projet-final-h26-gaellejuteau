@@ -17,7 +17,7 @@ export default function Catalogue({ addToCart }) {
     const fetchGateaux = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/gateaux",
+          "https://projet-final-nu0v.onrender.com/api/gateaux",
         );
         setGateaux(responseData.gateaux);
       } catch (err) {

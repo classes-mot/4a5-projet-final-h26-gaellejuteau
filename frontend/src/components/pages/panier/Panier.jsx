@@ -52,14 +52,17 @@ export default function Panier({ cart, updateCart }) {
 
     try {
       await sendRequest(
-        "http://localhost:5000/api/commandes",
+        "https://projet-final-nu0v.onrender.com/api/commandes",
         "POST",
         JSON.stringify({
           gateau: nomCommande,
           prix: total,
           client: userId,
         }),
-        { Authorization: `Bearer ${token}` },
+        {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       );
       updateCart([]);
       setShowConfirmModal(false);

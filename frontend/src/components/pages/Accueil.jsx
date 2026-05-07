@@ -18,7 +18,7 @@ const Accueil = ({ addToCart }) => {
     const fetchApercu = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/gateaux",
+          "https://projet-final-nu0v.onrender.com/api/gateaux",
         );
         setApercu(responseData.gateaux.slice(0, 3));
       } catch (err) {
@@ -36,7 +36,7 @@ const Accueil = ({ addToCart }) => {
 
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/commandes/${userId}`,
+          `https://projet-final-nu0v.onrender.com/api/commandes/${userId}`,
           "GET",
           null,
           { Authorization: `Bearer ${token}` },
