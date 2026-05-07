@@ -3,7 +3,7 @@ import GateauCard from "./components/GateauCard";
 import { useState, useEffect } from "react";
 import { useHttpClient } from "../../hooks/http-hook.js";
 import { useTranslation } from "react-i18next";
-
+//commentaire pour commit un changement de nom de fichier
 const GATEAUX = ["Tous", "Vanille", "Chocolat"];
 
 export default function Catalogue({ addToCart }) {
